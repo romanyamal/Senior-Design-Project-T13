@@ -190,6 +190,9 @@ try:
         
         #device stops moving
         elif(rightIR == False and leftIR == True):
+            #when stopped turn off pump and servo for spray nozzle
+            nozzle.pump(0)
+            nozzle.servoF(0)
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)

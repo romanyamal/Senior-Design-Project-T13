@@ -168,8 +168,8 @@ nozzle = SprayNozzle(servoPin, 50)
 try:
     while 1:
         #motors start at duty cycle 10
-        mot1.speed(10)
-        mot2.speed(10)
+        mot1.speed(25)
+        mot2.speed(25)
         print(bucket.level())
         #device moves straight
         if(rightIR == True and leftIR == True):
@@ -211,7 +211,6 @@ try:
         if(bucket.level() > 1):
             nozzle.pump(1)
             nozzle.servoF(1)
-
         #if at 1/4 or less turn off pump and servo for spray nozzle
         else:
             time.sleep(1)

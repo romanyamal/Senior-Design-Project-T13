@@ -125,7 +125,7 @@ class SprayNozzle:
     def servoF(self, action):
         #if 1 turn on servo code
         if(action == 1):
-            print("Servo started")
+            #print("Servo started")
             GPIO.output(self.pin, GPIO.HIGH)
             time.sleep(1)
             self.p.ChangeDutyCycle(5)
@@ -160,8 +160,8 @@ def refill():
 
 #setup current items
 bucket = Tank()
-mot1 = Motor(enable1, 1000)
-mot2 = Motor(enable2, 1000)
+mot1 = Motor(enable1, 8000)
+mot2 = Motor(enable2, 8000)
 nozzle = SprayNozzle(servoPin, 50)
 currentMode=0
 start=0
@@ -170,11 +170,11 @@ continueM=0
 try:
     while 1:
         #motors start at duty cycle 10
-        mot1.speed(25)
-        mot2.speed(25)
-        print(bucket.level())
+        mot1.speed(6)
+        mot2.speed(6)
+        #print(bucket.level())
         #device moves straight
-        if(rightIR == True and leftIR == True):
+        if(GPIO.input(rightIR) == True and GPIO.input(leftIR) == True):
             print("Driving straight")
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, False)
@@ -183,10 +183,10 @@ try:
             currentMode=1
             
         #device turns right
-        elif(rightIR == False and leftIR == True):
-            print("Turning right")
-            mot1.speed(20) #Motor 1 spins backward
-            mot2.speed(85)
+        elif(GPIO.input(rightIR) == False and GPIO.input(leftIR) == True):
+            #print("Turning right")
+            mot1.speed(34) #Motor 1 spins backward
+            mot2.speed(84)
             GPIO.output(motor1A, False)
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)
@@ -194,10 +194,10 @@ try:
             currentMode=1
             
         #device turns left
-        elif(rightIR == True and leftIR == False):
-            print("Turning left")
-            mot2.speed(20) #Motor 2 spins backwards
-            mot1.speed(85)
+        elif(GPIO.input(rightIR) == True and GPIO.input(leftIR) == False):
+            #print("Turning left")
+            mot2.speed(34) #Motor 2 spins backwards
+            mot1.speed(84)
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, False)
             GPIO.output(motor2A, False)
@@ -205,8 +205,8 @@ try:
             currentMode=1
         
         #device stops moving
-        elif(rightIR == False and leftIR == True):
-            print("Device stopped")
+        elif(GPIO.input(rightIR) == False and GPIO.input(leftIR) == True):
+            #print("Device stopped")
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)
@@ -216,11 +216,11 @@ try:
         #check tank level if more than 1/4 full turn on spray nozzle & pump
         if(bucket.level() > 1 and currentMode == 1):
             #Record time counter while running
-            start=start+1
             if(start=0 and continueM !=0)
                 continueM=continueM-1
                 
             if(continueM == 0)
+                start=start+1
                 nozzle.pump(1)
                 nozzle.servoF(1)
             
@@ -228,7 +228,6 @@ try:
         else:
             continueM=start
             start=0
-            time.sleep(1)
             nozzle.pump(0)
             nozzle.servoF(0)
 

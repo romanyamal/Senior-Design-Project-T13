@@ -163,7 +163,9 @@ bucket = Tank()
 mot1 = Motor(enable1, 1000)
 mot2 = Motor(enable2, 1000)
 nozzle = SprayNozzle(servoPin, 50)
-
+currentMode=0
+start=0
+continueM=0
 #main code that runs the loop
 try:
     while 1:
@@ -178,6 +180,7 @@ try:
             GPIO.output(motor1B, False)
             GPIO.output(motor2A, True)
             GPIO.output(motor2B, False)
+            currentMode=1
             
         #device turns right
         elif(rightIR == False and leftIR == True):
@@ -188,6 +191,7 @@ try:
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)
             GPIO.output(motor2B, False)
+            currentMode=1
             
         #device turns left
         elif(rightIR == True and leftIR == False):
@@ -198,6 +202,7 @@ try:
             GPIO.output(motor1B, False)
             GPIO.output(motor2A, False)
             GPIO.output(motor2B, True)
+            currentMode=1
         
         #device stops moving
         elif(rightIR == False and leftIR == True):
@@ -206,13 +211,23 @@ try:
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)
             GPIO.output(motor2B, True)
+            currentMode=0
             
         #check tank level if more than 1/4 full turn on spray nozzle & pump
-        if(bucket.level() > 1):
-            nozzle.pump(1)
-            nozzle.servoF(1)
+        if(bucket.level() > 1 and currentMode == 1):
+            #Record time counter while running
+            start=start+1
+            if(start=0 and continueM !=0)
+                continueM=continueM-1
+                
+            if(continueM == 0)
+                nozzle.pump(1)
+                nozzle.servoF(1)
+            
         #if at 1/4 or less turn off pump and servo for spray nozzle
         else:
+            continueM=start
+            start=0
             time.sleep(1)
             nozzle.pump(0)
             nozzle.servoF(0)

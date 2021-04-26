@@ -114,7 +114,7 @@ class SprayNozzle:
         #if 1 turn on pump
         if(action == 1):
             GPIO.output(self.pin, GPIO.HIGH)
-            print("Pump started")
+            #print("Pump started")
         #else turn off pump and  code
         elif(action == 0):
             GPIO.output(self.pin, GPIO.LOW)
@@ -175,7 +175,7 @@ try:
         #print(bucket.level())
         #device moves straight
         if(GPIO.input(rightIR) == True and GPIO.input(leftIR) == True):
-            print("Driving straight")
+            #print("Driving straight")
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, False)
             GPIO.output(motor2A, True)

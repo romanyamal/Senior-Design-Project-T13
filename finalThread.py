@@ -219,6 +219,9 @@ try:
     level1.start()
     mobility1.start()
     servo1.start()
+    #run loop that makes sure the device keeps going in a loop
+    while (terminate == 0)
+        pass
 #     while 1:
 #         key=input("Enter: ")
 #         key = int(key)

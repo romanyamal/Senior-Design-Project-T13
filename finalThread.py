@@ -119,19 +119,16 @@ def pump():
     #else turn off pump and  code
     elif(actionP == 0):
         GPIO.output(waterP, GPIO.LOW)
-    #else if unknown command print unknown command
-    else:
-        print("Wrong value entered for pump")
 
 def servoF():
         #check tank level if more than 1/4 full turn on spray nozzle & pump
     while(terminate == 0):
         time.sleep(1)
-        print("servo")
+        #print("servo")
         if(status > 1):
             actionP = 1
             pump()
-            print("Servo started")
+            #print("Servo started")
             GPIO.output(self.pin, GPIO.HIGH)
             time.sleep(1)
             p.ChangeDutyCycle(5)
@@ -162,10 +159,10 @@ def mobility():
         mot1.speed(25)
         mot2.speed(25)
         time.sleep(1)
-        print("motors")
+        #print("motors")
         #device moves straight
         if(GPIO.input(rightIR) == True and GPIO.input(leftIR) == True):
-            print("Driving straight")
+            #print("Driving straight")
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, False)
             GPIO.output(motor2A, True)
@@ -173,7 +170,7 @@ def mobility():
             
         #device turns right
         elif(GPIO.input(rightIR) == False and GPIO.input(leftIR) == True):
-            print("Turning right")
+            #print("Turning right")
             mot1.speed(20) #Motor 1 spins backward
             mot2.speed(85)
             GPIO.output(motor1A, False)
@@ -183,7 +180,7 @@ def mobility():
                 
         #device turns left
         elif(GPIO.input(rightIR) == True and GPIO.input(leftIR) == False):
-            print("Turning left")
+            #print("Turning left")
             mot2.speed(20) #Motor 2 spins backwards
             mot1.speed(85)
             GPIO.output(motor1A, True)
@@ -193,7 +190,7 @@ def mobility():
         
         #device stops moving
         elif(GPIO.input(rightIR) == False and GPIO.input(leftIR) == True):
-            print("Device stopped")
+            #print("Device stopped")
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)

@@ -52,8 +52,8 @@ GPIO.setup(enable1, GPIO.OUT)
 GPIO.setup(enable2, GPIO.OUT)
 
 #GPIO setup for line senor
-GPIO.setup(leftIR, GPIO.IN)
-GPIO.setup(rightIR, GPIO.IN)
+GPIO.setup(leftIR, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(rightIR, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 #GPIO setup for servo motor
 GPIO.setup(servoP, GPIO.OUT)
@@ -72,8 +72,8 @@ terminate = 0
         
 def level():
     while(terminate == 0):
-        time.sleep(1)
-        print("level")
+        #time.sleep(1)
+        #print("level")
         global sprev
         global status
         if GPIO.input(full):
@@ -123,13 +123,13 @@ def pump():
 def servoF():
         #check tank level if more than 1/4 full turn on spray nozzle & pump
     while(terminate == 0):
-        time.sleep(1)
+        #time.sleep(1)
         #print("servo")
         if(status > 1):
             actionP = 1
             pump()
             #print("Servo started")
-            GPIO.output(self.pin, GPIO.HIGH)
+            GPIO.output(servoP, GPIO.HIGH)
             time.sleep(1)
             p.ChangeDutyCycle(5)
             time.sleep(0.1)
@@ -158,7 +158,7 @@ def mobility():
     while(terminate == 0):
         mot1.speed(25)
         mot2.speed(25)
-        time.sleep(1)
+        #time.sleep(1)
         #print("motors")
         #device moves straight
         if(GPIO.input(rightIR) == True and GPIO.input(leftIR) == True):

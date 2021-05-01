@@ -171,8 +171,8 @@ def mobility():
         #device turns right
         elif(GPIO.input(rightIR) == False and GPIO.input(leftIR) == True):
             #print("Turning right")
-            mot1.speed(20) #Motor 1 spins backward
-            mot2.speed(85)
+            mot1.speed(48) #Motor 1 spins backward
+            mot2.speed(84)
             GPIO.output(motor1A, False)
             GPIO.output(motor1B, True)
             GPIO.output(motor2A, True)
@@ -181,8 +181,8 @@ def mobility():
         #device turns left
         elif(GPIO.input(rightIR) == True and GPIO.input(leftIR) == False):
             #print("Turning left")
-            mot2.speed(20) #Motor 2 spins backwards
-            mot1.speed(85)
+            mot2.speed(48) #Motor 2 spins backwards
+            mot1.speed(84)
             GPIO.output(motor1A, True)
             GPIO.output(motor1B, False)
             GPIO.output(motor2A, False)
@@ -202,8 +202,8 @@ def refill():
     pass
 
 #setup current items
-mot1 = Motor(enable1, 1000)
-mot2 = Motor(enable2, 1000)
+mot1 = Motor(enable1, 8000)
+mot2 = Motor(enable2, 8000)
 p=GPIO.PWM(servoP,50)
 p.start(0)
 servo1=threading.Thread(target=servoF, name='servo1')
@@ -220,7 +220,7 @@ try:
     mobility1.start()
     servo1.start()
     #run loop that makes sure the device keeps going in a loop
-    while (terminate == 0)
+    while (terminate == 0):
         pass
 #     while 1:
 #         key=input("Enter: ")
